@@ -6,10 +6,13 @@
 #include "StdDeviation.h"
 
 #include "../Signals/waveforms.c"
+#include "../Signals/impulse_response.c"
 
 #define SIG_LENGTH 320
+#define IMP_LEN    29
 
 extern double InputSignal_f32_1kHz_15kHz[SIG_LENGTH];
+extern double  Impulse_response[IMP_LEN];
 
 
 void main (void) {
