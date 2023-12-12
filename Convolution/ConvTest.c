@@ -4,6 +4,7 @@
 #include <math.h>
 #include "Convolution.h"
 #include "RunningSum.h"
+#include "FirstDifference.h"
 
 #include "../Signals/waveforms.c"
 #include "../Signals/impulse_response.c"
@@ -15,9 +16,12 @@ extern double InputSignal_f32_1kHz_15kHz[SIG_LENGTH];
 extern double Impulse_response[IMP_LEN];
        double outputSignal[SIG_LENGTH + IMP_LEN];
        double rsumOutput[SIG_LENGTH];
+       double fdOutput[SIG_LENGTH];
 
 void main (void) {
 
+    // Convolution Test
+    //////////////////////////////////////////////////////////////////////
     FILE *pInputSig, *pResponse;
 
     pInputSig = fopen("../Signals/input_signal.dat", "w");
@@ -52,7 +56,8 @@ void main (void) {
 
     fclose(pOutput);
 
-    // Running Sum Calculation
+    // Running Sum Test
+    //////////////////////////////////////////////////////////////////////
     FILE *pRSumOutFile = fopen("../Signals/running_sum_out.dat", "w");
 
     running_sum(InputSignal_f32_1kHz_15kHz, rsumOutput, SIG_LENGTH);
@@ -62,5 +67,17 @@ void main (void) {
     }
 
     fclose(pRSumOutFile);
+
+    // First Difference Test
+    ///////////////////////////////////////////////////////////////////////
+    FILE *pFDOutFile = fopen("../Signals/first_diff_out.dat", "w");
+
+    first_difference(InputSignal_f32_1kHz_15kHz, fdOutput, SIG_LENGTH);
+
+    for(int iter = 0; iter < SIG_LENGTH; iter++) {
+        fprintf(pFDOutFile, "\n%f", fdOutput[iter]);
+    }
+
+    fclose(pFDOutFile);
 
 }

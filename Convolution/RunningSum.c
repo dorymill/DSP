@@ -8,6 +8,6 @@ void running_sum(const double *signal, double *output, int sig_length) {
 
     for (int iter = 0; iter < sig_length; iter++) {
         
-        output[iter] = output[iter-1] + signal[iter];
+        output[iter] = signal[iter] + output[iter-1];
     }
 }

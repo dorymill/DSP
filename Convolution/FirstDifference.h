@@ -1,6 +1,7 @@
 // First Difference Calculation Header File
-#ifndef RUNNINGSUM_H
-#define RUNNINGSUM_H
+#ifndef FIRSTDIFF_H
+#define FIRSTDIFF_H
 
+void first_difference(const double *signal, double *output, int sig_length);
 
 #endif
