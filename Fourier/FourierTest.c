@@ -15,8 +15,8 @@ extern double InputSignal_f32_1kHz_15kHz[SIG_LEN]; // 48 kHz sample rate
 
 extern double ecg[ECG_LEN]; // 48 kHz sample rate
 
-extern double sig_imX[SIG_LEN2]; // 48 kHz sample rate
-extern double sig_reX[SIG_LEN2]; // 48 kHz sample rate
+extern double sig_imX[SIG_LEN2]; // Unknown sample rate
+extern double sig_reX[SIG_LEN2]; // Unknown sample rate
 
        double outputReX      [SIG_LEN/2];
        double outputImX      [SIG_LEN/2];
@@ -62,7 +62,7 @@ void main (void) {
     }
 
     for(int iter = 0; iter < SIG_LEN2 -1; iter++) {
-        frequencyAxisCdft[iter] = iter*((SAMPLE_RATE/2)/((SIG_LEN2-1)/2));
+        frequencyAxisCdft[iter] = (double) (iter*((10000/2)/((SIG_LEN2-1)/2)))/100;
         fprintf(p20HzFreqs,"\n%f",frequencyAxisCdft[iter]);
     }
 
