@@ -11,6 +11,8 @@ void dft(const double *signal, double *reX, double *imX, int sig_length)
 
     int i,j,k;
 
+    double norm = (double) 2 / (double) sig_length;
+
     for (j = 0; j < sig_length/2; j++) {
         reX[j] = 0;
         imX[j] = 0;
@@ -18,8 +20,8 @@ void dft(const double *signal, double *reX, double *imX, int sig_length)
 
     for(k = 0; k < sig_length / 2; k++) {
         for(i = 0; i < sig_length; i++) {
-            reX[k] = reX[k] + signal[i]*cos(2*PI*k*i/sig_length);
-            imX[k] = imX[k] - signal[i]*sin(2*PI*k*i/sig_length);
+            reX[k] += norm*(signal[i]*cos(2*PI*k*i/sig_length));
+            imX[k] += norm*(-signal[i]*sin(2*PI*k*i/sig_length));
 
         }
     }
@@ -55,11 +57,15 @@ void inverse_dft(double *reX, double *imX, double *signal, int dft_length)
 
 }
 
-
-void dft_mag(const double *reX, const double *imX, double *output, int sig_length)
+void dft_mag(double *reX, const double *imX, double *output, int sig_length)
 {
 
     for(int iter = 0; iter < sig_length; iter++) {
+
+        if (reX == 0) {
+            reX[iter] = pow(10,-20);
+        }
+
         output[iter] = sqrt(pow(reX[iter],2) + pow(imX[iter],2));
 
     }
@@ -71,20 +77,28 @@ void dft_phase(double *reX, double *imX, double *output, int sig_length)
 {
 
     for(int iter = 0; iter < sig_length; iter++) {
-        output[iter] = 0;
 
-        if(reX[iter] == 0) {
-            reX[iter] = pow(10,-20);
-            output[iter] = atan(imX[iter]/reX[iter]);
-        }
+        output[iter] = atan2(imX[iter],reX[iter]);
 
-        if(reX[iter] < 0 && output[iter] < 0) { // Negative phase rollover handling 
-            output[iter] = output[iter] - PI;
-        }
-
-        if(reX[iter] < 0 && output[iter] >= 0) { // Positive phase rollover handling
-            output[iter] = output[iter] + PI;
-        }
     }
 
+}
+
+void cdft(double *sigRe, double *sigIm, double *reX, double *imX, int sig_length)
+{
+
+    double real, imag, norm;
+
+    norm = (double) 1 / (double) sig_length;
+
+    for(int k = 0; k < sig_length-1;k++){
+        for(int i = 0; i < sig_length-1; i++) {
+
+            real =  cos(2*PI*k*i/sig_length);
+            imag = -sin(2*PI*k*i/sig_length);
+
+            reX[k] += norm*(sigRe[i]*real - sigIm[i]*imag);
+            imX[k] += norm*(sigRe[i]*imag + sigIm[i]*real); 
+        }
+    }
 }
