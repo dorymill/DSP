@@ -5,6 +5,13 @@
 
 #define PI 3.14159265359
 
+/**
+ * @brief Converts rectangular coordinates to polar
+ * 
+ * @param reX      Pointer to X coordinate
+ * @param imX      Pointer to Y coordinate
+ * @return double* Pointer to output coordintes [0] = r, [1] = theta
+ */
 double * rect_to_polar(double reX, double imX) 
 {
     double result[2] = {0};
@@ -30,11 +37,13 @@ double * rect_to_polar(double reX, double imX)
     return result;
 }
 
-
-
-
-
-
+/**
+ * @brief Converts ploar coordinates to rectangular
+ * 
+ * @param radius   Pointer to radial coordinate
+ * @param theta    Pointer to angular coordinate
+ * @return double* Pointer to output coordinates [0] = x, [1] = y 
+ */
 double * polar_to_rect(double radius, double theta)
 {
     double result[2] = {0};

@@ -6,6 +6,14 @@
 
 #define PI 3.14159265359
 
+/**
+ * @brief Calculates the real DFT of a real valued signal.
+ * 
+ * @param signal     Pointer to input signal buffer
+ * @param reX        Pointer to output real sample buffer
+ * @param imX        Pointer to output imaginary sample buffer
+ * @param sig_length Signal length
+ */
 void dft(const double *signal, double *reX, double *imX, int sig_length)
 {
 
@@ -27,6 +35,14 @@ void dft(const double *signal, double *reX, double *imX, int sig_length)
     }
 }
 
+/**
+ * @brief Calculates the inverse DFT given input real and imaginary samples.
+ * 
+ * @param reX        Pointer to real valued input sample buffer
+ * @param imX        Pointer to imaginary valued input sample buffer
+ * @param signal     Pointer to output signal buffer
+ * @param dft_length Fourier transform length
+ */
 void inverse_dft(double *reX, double *imX, double *signal, int dft_length)
 {
 
@@ -57,6 +73,14 @@ void inverse_dft(double *reX, double *imX, double *signal, int dft_length)
 
 }
 
+/**
+ * @brief Calculates the magnitude of a discrete fourier transform point
+ * 
+ * @param reX        Pointer to real valued input sample buffer
+ * @param imX        Pointer to imaginary valued input sample buffer
+ * @param output     Pointer to output magnitude buffer
+ * @param sig_length Signal length
+ */
 void dft_mag(double *reX, const double *imX, double *output, int sig_length)
 {
 
@@ -73,6 +97,14 @@ void dft_mag(double *reX, const double *imX, double *output, int sig_length)
 
 }
 
+/**
+ * @brief Calculates the phase of a discrete fourier transform point
+ * 
+ * @param reX        Pointer to real valued input sample buffer
+ * @param imX        Pointer to imaginary valued input sample buffer
+ * @param output     Pointer to output phase buffer
+ * @param sig_length Signal length
+ */
 void dft_phase(double *reX, double *imX, double *output, int sig_length)
 {
 
@@ -84,6 +116,15 @@ void dft_phase(double *reX, double *imX, double *output, int sig_length)
 
 }
 
+/**
+ * @brief Calculates the complex DFT using a complex valued input signal.
+ * 
+ * @param sigRe      Pointer to real valued input buffer
+ * @param sigIm      Pointer to complex valued input buffer
+ * @param reX        Pointer to real valued output buffer
+ * @param imX        Pointer to complex valued output buffer
+ * @param sig_length Signal length
+ */
 void cdft(double *sigRe, double *sigIm, double *reX, double *imX, int sig_length)
 {
 

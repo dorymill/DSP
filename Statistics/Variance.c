@@ -5,6 +5,13 @@
 #include "Mean.h"
 #include "Variance.h"
 
+/**
+ * @brief Method to calculate the variance of a signal
+ * 
+ * @param signal     Pointer to input signal buffer
+ * @param sig_length Signal length
+ * @return double    Signal variance (Power)
+ */
 double calc_signal_variance (const double *signal, int sig_length) {
 
     double variance = 0.0;

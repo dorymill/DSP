@@ -3,6 +3,13 @@
 #include <stdlib.h>
 #include "Mean.h"
 
+/**
+ * @brief Calculates the mean of a signal
+ * 
+ * @param signal     Pointer to input signal
+ * @param sig_length Signal length
+ * @return double    Signal mean
+ */
 double calc_signal_mean (const double *signal, int sig_length) {
 
     double mean = 0.0;
