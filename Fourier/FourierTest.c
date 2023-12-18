@@ -36,7 +36,7 @@ extern double sig_reX[SIG_LEN2]; // Unknown sample rate
 
        double frequencyAxisEcg [ECG_LEN/2];
        double frequencyAxisDft [SIG_LEN/2];
-       double frequencyAxisCdft[SIG_LEN2-1];
+       double frequencyAxisCdft[SIG_LEN2/2];
 
 void main (void) {
 
@@ -62,7 +62,7 @@ void main (void) {
     }
 
     for(int iter = 0; iter < SIG_LEN2 -1; iter++) {
-        frequencyAxisCdft[iter] = (double) (iter*((10000/2)/((SIG_LEN2-1)/2)))/100;
+        frequencyAxisCdft[iter] = (double) (iter*((10000/2)/((SIG_LEN2)/2)))/100;
         fprintf(p20HzFreqs,"\n%f",frequencyAxisCdft[iter]);
     }
 
