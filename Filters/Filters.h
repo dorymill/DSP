@@ -4,9 +4,9 @@
 
 typedef enum{
 
-    SINC,
+    TRUNC,
     HAMMING,
-    BLACKMON,
+    BLACKMAN,
 
 } Windows;
 

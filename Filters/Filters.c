@@ -38,19 +38,48 @@ void lowpass(double *signal,
     // Calculate filter based on window
     switch (window) {
 
-        case (SINC):
-            
+        case (TRUNC):
+
             // Calculate the filter kernel
             for(int n = 0; n < kernel_length; n++){
                 
-                // If we're past the sample frequency 
+                //  Truncate If we're past the sample frequency 
                 if((n - kernel_length/2) == 0){
                     kernel[n] = 2*PI*f_c;
                 }
                 
+                // Sinc with no window otherwise
                 if((n - kernel_length/2) != 0) {
                     kernel[n] = sin(2*PI*f_c*(n - k_len/2)) / (n - k_len/2);
-                    // Window this sucker
+                }
+
+                // Calculate running sum for normalization
+                norm += kernel[n];
+
+            }
+
+            // Normalize the filter at DC
+            for (int n = 0; n < kernel_length; n++) {
+                kernel[n] /= norm;
+            }
+
+            break;
+
+        case (HAMMING):
+            
+            // Calculate the filter kernel
+            for(int n = 0; n < kernel_length; n++){
+                
+                //  Truncate If we're past the sample frequency 
+                if((n - kernel_length/2) == 0){
+                    kernel[n] = 2*PI*f_c;
+                }
+                
+                // Sinc part
+                if((n - kernel_length/2) != 0) {
+                    kernel[n] = sin(2*PI*f_c*(n - k_len/2)) / (n - k_len/2);
+                    
+                    // Hamming window
                     kernel[n] = kernel[n] * (0.54 - 0.46*cos(2*PI*n / k_len));
                 }
 
@@ -66,11 +95,39 @@ void lowpass(double *signal,
 
             break;
             
+        case (BLACKMAN):
 
-        case (HAMMING):
+            // Calculate the filter kernel
+            for(int n = 0; n < kernel_length; n++){
+                
+                //  Truncate If we're past the sample frequency 
+                if((n - kernel_length/2) == 0){
+                    kernel[n] = 2*PI*f_c;
+                }
+                
+                // Sinc part
+                if((n - kernel_length/2) != 0) {
+                    kernel[n] = sin(2*PI*f_c*(n - k_len/2)) / (n - k_len/2);
+                    
+                    // Blackman window
+                    kernel[n] = kernel[n] * (0.42 - 0.5*cos(2*PI*n / k_len) + 0.08*cos(4*PI*n / k_len));
+                }
+
+                // Calculate running sum for normalization
+                norm += kernel[n];
+
+            }
+
+            // Normalize the filter at DC
+            for (int n = 0; n < kernel_length; n++) {
+                kernel[n] /= norm;
+            }
+
             break;
 
-        case (BLACKMON):
+        default:
+            printf("Please select a window. Convolving with null kernel.");
+            memset(kernel, 0, sizeof(kernel));
             break;
     }
 

@@ -85,7 +85,7 @@ void main (void)
 
 
     // Perform the filtering
-    lowpass(InputSignal_f32_1kHz_15kHz, outputSignal, sincKernel, SINC, 5000, SAMPLE_RATE, SIG_LEN, KERNEL_LEN);
+    lowpass(InputSignal_f32_1kHz_15kHz, outputSignal, sincKernel, BLACKMAN, 5000, SAMPLE_RATE, SIG_LEN, KERNEL_LEN);
     printf("\n[+] Filtering complete");
 
 
