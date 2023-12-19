@@ -25,9 +25,10 @@ void convolve (const double *signal,
     memset(output, 0, sizeof(output));
 
     // Convolve
-    for(i = 0 ; i < sig_len; i++) {
+    for(i = 0; i < sig_len; i++) {
         for (j = 0; j < kern_len; j++) {
-            output[i+j] += signal[i]*kernel[j];
+            //output[i+j] += signal[i]*kernel[j];
+            output[i] += signal[i-j]*kernel[j];
         }
     }
 }
