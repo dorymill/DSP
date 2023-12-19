@@ -11,8 +11,8 @@
 #define SIG_LEN     320
 #define SIG_LEN2    501
 #define ECG_LEN     640
-#define KERNEL_LEN  30
-#define SAMPLE_RATE 48000
+#define KERNEL_LEN  30       // M = 4 / BW where BW is filter bandwidth relative to fs/2
+#define SAMPLE_RATE 48000   // fs
 
 extern double InputSignal_f32_1kHz_15kHz[SIG_LEN]; // 48 kHz sample rate
 

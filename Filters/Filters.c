@@ -74,13 +74,7 @@ void lowpass(double *signal,
             break;
     }
 
-    //Now convolve the filter kernel with the signal to produce the output
-    // for(int i = kernel_length; i < sig_length - kernel_length; i++) {
-    //     for (int j = 0; j < kernel_length; j++) {
-    //         output[i] += signal[i-j]*kernel[j];
-    //     }
-    // }
-
+    // Convolve the final output
     convolve(signal, output, kernel, sig_length - kernel_length, kernel_length);
 
 }
